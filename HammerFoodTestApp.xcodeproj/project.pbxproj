@@ -42,6 +42,7 @@
 		54C124C929FBB9810020EB11 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C124C829FBB9810020EB11 /* ImageLoader.swift */; };
 		54C124CB29FBD8D60020EB11 /* CategoryCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C124CA29FBD8D60020EB11 /* CategoryCollectionReusableView.swift */; };
 		54C124D029FC4B6E0020EB11 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C124CF29FC4B6E0020EB11 /* UIView+Extension.swift */; };
+		54C124D329FD3B480020EB11 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C124D229FD3B480020EB11 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		54C124C829FBB9810020EB11 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		54C124CA29FBD8D60020EB11 /* CategoryCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionReusableView.swift; sourceTree = "<group>"; };
 		54C124CF29FC4B6E0020EB11 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		54C124D229FD3B480020EB11 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			children = (
 				54C124B929FB87510020EB11 /* APIRequest.swift */,
 				54C124BB29FB87A20020EB11 /* ImageRequest.swift */,
+				54C124D229FD3B480020EB11 /* Reachability.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 				547D7FC729FAED3600EAE8AE /* MenuViewController.swift in Sources */,
 				547D7FF729FB10EC00EAE8AE /* LocationView.swift in Sources */,
 				547D7FD129FAED9D00EAE8AE /* BaseViewController.swift in Sources */,
+				54C124D329FD3B480020EB11 /* Reachability.swift in Sources */,
 				54C124C529FB9CD60020EB11 /* SkeletonLoadable.swift in Sources */,
 				54C124BA29FB87510020EB11 /* APIRequest.swift in Sources */,
 				547D7FF229FB0D0200EAE8AE /* MenuPresenter.swift in Sources */,

@@ -18,6 +18,7 @@ enum Constants {
     enum Error {
         static let dataNetwork = "Failed to get data"
         static let parseNetwork = "Failed to parse data"
+        static let networkConnection = "No network connection"
     }
     
     enum Identefiers {
@@ -33,6 +34,7 @@ enum Constants {
         static let profile = "Профиль"
         static let cart = "Корзина"
         static let OK = "OK"
+        static let error = "Error"
     }
     
     enum Images {

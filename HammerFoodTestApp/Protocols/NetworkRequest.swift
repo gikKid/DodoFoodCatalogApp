@@ -35,13 +35,14 @@ extension NetworkRequest {
 
 
 enum NetworkError:Error {
-    case data,parse
+    case data, parse, connection
     case undefained(String)
     
     var description:String {
         switch self {
         case .data: return Constants.Error.dataNetwork
         case .parse: return Constants.Error.parseNetwork
+        case .connection: return Constants.Error.networkConnection
         case .undefained(let string): return string
         }
     }

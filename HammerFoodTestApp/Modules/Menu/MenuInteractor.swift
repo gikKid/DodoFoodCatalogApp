@@ -1,24 +1,29 @@
 import Foundation
 
 class MenuInteractor: PresenterToInteractorMenuProtocol {
-
+    
     var presenter: InteractorToPresenterMenuProtocol?
     
     func fetchServerData() {
-        let dispatchGroup = DispatchGroup()
-        var promotions: [PromotionElement] = []
-        var food: [FoodElement] = []
         
-        self.fetchPromotionData(dispatchGroup) { data in
-            promotions = data
-        }
-        
-        self.fetchFoodData(dispatchGroup) { data in
-            food = data
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            self.presenter?.fetchServerDataSuccess(promotions, food)
+        if Reachability.isConnectedToNetwork() {
+            let dispatchGroup = DispatchGroup()
+            var promotions: [PromotionElement] = []
+            var food: [FoodElement] = []
+            
+            self.fetchPromotionData(dispatchGroup) { data in
+                promotions = data
+            }
+            
+            self.fetchFoodData(dispatchGroup) { data in
+                food = data
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                self.presenter?.fetchServerDataSuccess(promotions, food)
+            }
+        } else {
+            self.presenter?.fetchServerDataFailure(errorMessage: NetworkError.connection.description)
         }
     }
     

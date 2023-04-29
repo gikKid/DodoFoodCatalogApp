@@ -78,7 +78,7 @@ extension MenuViewController: PresenterToViewMenuProtocol {
     }
     
     func showFailureAlert(_ errorMessage: String) {
-        self.present(self.createInfoAlert(message: errorMessage, title: Constants.Titles.OK),animated: true)
+        self.present(self.createInfoAlert(message: errorMessage, title: Constants.Titles.error),animated: true)
     }
 }
 
