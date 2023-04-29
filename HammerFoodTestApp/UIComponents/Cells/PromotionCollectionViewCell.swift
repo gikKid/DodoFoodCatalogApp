@@ -24,7 +24,7 @@ class PromotionCollectionViewCell: UICollectionViewCell, ImageLoader {
         guard self.imageURL == nil else { return }
         self.imageURL = imageURL
         
-        self.loadImage(imageURL) { [weak self] image, error in
+        self.loadImage(imageURL, qos: .userInitiated) { [weak self] image, error in
             if let error = error {
                 self?.errorHandler?(error.localizedDescription)
                 return

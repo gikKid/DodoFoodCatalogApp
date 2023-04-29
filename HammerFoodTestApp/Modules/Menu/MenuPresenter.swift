@@ -10,7 +10,7 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
     var interactor: PresenterToInteractorMenuProtocol?
     var router: PresenterToRouterMenuProtocol?
     var state: MenuState = .none
-    var food: [FoodElement] = []
+    var food: FoodElement = .init(categories: [], id: "0")
     var promotions: [PromotionElement] = []
     var categorySnapshot: CategoryHeaderSnapshot = .init(categories: [], selectedIndex: 0)
     
@@ -37,7 +37,7 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
         case UIConstants.promotionsSection:
             return self.state == .fetching ? UIConstants.defaultItemsCount : self.promotions.count
         case UIConstants.foodSection:
-            return self.state == .fetching ? UIConstants.defaultItemsCount : self.food.first?.categories[self.categorySnapshot.selectedIndex].content.count ?? 0 // in API we get data in array w/ only 1 element
+            return self.state == .fetching ? UIConstants.defaultItemsCount : self.food.categories[self.categorySnapshot.selectedIndex].content.count
         default: return 0
         }
     }
@@ -68,15 +68,13 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
                 self?.view?.showFailureAlert(errorMessage)
             }
             
-            if state == .fetching && self.food.isEmpty {
+            if state == .fetching && self.food.categories.isEmpty {
                 cell.showLoadingAnimation()
             } else {
-                if let categories = self.food.first?.categories {
-                    cell.configure(categories[self.categorySnapshot.selectedIndex].content[indexPath.row])
-                    
-                    indexPath.row == 0 ? cell.roundCorners(corners: [.topLeft,.topRight],
-                                                           radius: UIConstants.firstCellRadius) : nil // in top food section we have rounded corners
-                }
+                cell.configure(self.food.categories[self.categorySnapshot.selectedIndex].content[indexPath.row])
+                
+                indexPath.row == 0 ? cell.roundCorners(corners: [.topLeft,.topRight],
+                                                       radius: UIConstants.firstCellRadius) : nil // in top food section we have rounded corners
             }
             
             return cell
@@ -105,11 +103,10 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
 
 // MARK: - InteractorToPresenter
 extension MenuPresenter: InteractorToPresenterMenuProtocol {
-    func fetchServerDataSuccess(_ promotions: [PromotionElement],_ food: [FoodElement]) {
+    func fetchServerDataSuccess(_ promotions: [PromotionElement],_ food: FoodElement) {
         self.promotions = promotions
         self.food = food
-        guard let categories = food.first?.categories else { return }
-        self.categorySnapshot.categories = categories
+        self.categorySnapshot.categories = food.categories
         self.state = .fetched
         self.view?.reloadCollection()
     }

@@ -118,7 +118,7 @@
 			children = (
 				54C124CE29FC4B5D0020EB11 /* Extensions */,
 				547D7FD429FAEF9600EAE8AE /* Protocols */,
-				547D7FCE29FAED8800EAE8AE /* Components */,
+				547D7FCE29FAED8800EAE8AE /* UIComponents */,
 				547D7FCB29FAED6100EAE8AE /* Services */,
 				547D7FC829FAED4500EAE8AE /* Helper */,
 				547D7FC429FAED0100EAE8AE /* Modules */,
@@ -176,7 +176,6 @@
 		547D7FCB29FAED6100EAE8AE /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				547D7FCD29FAED7300EAE8AE /* Cache */,
 				547D7FCC29FAED6900EAE8AE /* Networking */,
 			);
 			path = Services;
@@ -192,14 +191,7 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		547D7FCD29FAED7300EAE8AE /* Cache */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cache;
-			sourceTree = "<group>";
-		};
-		547D7FCE29FAED8800EAE8AE /* Components */ = {
+		547D7FCE29FAED8800EAE8AE /* UIComponents */ = {
 			isa = PBXGroup;
 			children = (
 				54C124C329FB88AF0020EB11 /* Headers */,
@@ -207,7 +199,7 @@
 				547D7FF529FB10D100EAE8AE /* Views */,
 				547D7FCF29FAED9000EAE8AE /* ViewControllers */,
 			);
-			path = Components;
+			path = UIComponents;
 			sourceTree = "<group>";
 		};
 		547D7FCF29FAED9000EAE8AE /* ViewControllers */ = {

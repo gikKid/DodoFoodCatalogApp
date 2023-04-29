@@ -41,7 +41,7 @@ class FoodCollectionViewCell: UICollectionViewCell, ImageLoader {
     
     var gradient = CAGradientLayer()
     var errorHandler: ((_ errorMessage:String) -> Void)?
-    
+    var imageURL:String?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -60,13 +60,14 @@ class FoodCollectionViewCell: UICollectionViewCell, ImageLoader {
         
         self.roundCorners(corners: [.topLeft,.topRight], radius: 0) // reset rounded top corners after first cell
         self.imageView.image = nil
+        self.imageURL = foodContent.imageurl
         
-        self.loadImage(foodContent.imageurl) { [weak self] image, error in
+        self.loadImage(foodContent.imageurl, qos: .userInitiated) { [weak self] image, error in
             if let error = error {
                 self?.errorHandler?(error.localizedDescription)
                 return
             }
-            guard let image = image else { return }
+            guard let image = image, let imageURL = self?.imageURL, imageURL == foodContent.imageurl else { return }
             DispatchQueue.main.async {
                 self?.imageView.image = image
             }

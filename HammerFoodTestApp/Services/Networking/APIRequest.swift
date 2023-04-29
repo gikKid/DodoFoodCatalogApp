@@ -1,10 +1,12 @@
 import Foundation
 
 class APIRequest<Resource: APIResource> {
-    var resource: Resource
+    let resource: Resource
+    let qos: DispatchQoS.QoSClass
     
-    init(resource: Resource) {
+    init(resource: Resource, qos: DispatchQoS.QoSClass) {
         self.resource = resource
+        self.qos = qos
     }
 }
 
@@ -17,6 +19,6 @@ extension APIRequest: NetworkRequest {
     }
     
     func execute(withCompletion completion: @escaping ([Resource.ModelType]?, NetworkError?) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async { self.load(self.resource.url, withCompletion: completion) }
+        DispatchQueue.global(qos: self.qos).async { self.load(self.resource.url, withCompletion: completion) }
     }
 }

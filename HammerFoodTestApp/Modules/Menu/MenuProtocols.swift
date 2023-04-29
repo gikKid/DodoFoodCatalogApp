@@ -28,7 +28,7 @@ protocol PresenterToInteractorMenuProtocol {
 
 //MARK: - Interactor Output (Interactor -> Presenter)
 protocol InteractorToPresenterMenuProtocol {
-    func fetchServerDataSuccess(_ promotions: [PromotionElement],_ food: [FoodElement])
+    func fetchServerDataSuccess(_ promotions: [PromotionElement],_ food: FoodElement)
     func fetchServerDataFailure(errorMessage: String)
 }
 

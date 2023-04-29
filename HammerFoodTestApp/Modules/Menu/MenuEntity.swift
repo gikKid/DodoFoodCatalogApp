@@ -3,9 +3,10 @@ import Foundation
 
 //MARK: - FoodElement
 struct FoodElement: Decodable {
-    let categories: [Category]
-    let id: String
+    var categories: [Category]
+    var id: String
 }
+
 
 //MARK: - Category
 struct Category: Decodable {
@@ -13,17 +14,20 @@ struct Category: Decodable {
     let content: [Content]
 }
 
+
 //MARK: - Content
 struct Content: Decodable {
     let name, description, imageurl, id: String
     let price: Int
 }
 
+
 //MARK: - PromotionElement
-struct PromotionElement: Codable {
-    let imageurl: String
+struct PromotionElement: Decodable {
+    var imageurl: String
     let id: String
 }
+
 
 //MARK: - FoodResource
 struct FoodResource:APIResource {
@@ -32,7 +36,6 @@ struct FoodResource:APIResource {
     var methodPath: String = {
         return Constants.Links.Paths.food
     }()
-
 }
 
 
@@ -43,7 +46,6 @@ struct PromotionResource:APIResource {
     var methodPath: String = {
         return Constants.Links.Paths.promotions
     }()
-
 }
 
 
