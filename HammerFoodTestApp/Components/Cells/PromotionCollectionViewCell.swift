@@ -1,14 +1,11 @@
 import UIKit
 import SnapKit
 
-protocol PromotionCollectionViewCellProtocol {
-    func passError(_ errorMessage: String)
-}
 
 class PromotionCollectionViewCell: UICollectionViewCell, ImageLoader {
     
     private var imageURL: String?
-    var delegate: PromotionCollectionViewCellProtocol?
+    var errorHandler: ((_ errorMessage: String) -> Void)?
     var gradient = CAGradientLayer()
     let imageView = UIImageView()
     
@@ -27,15 +24,15 @@ class PromotionCollectionViewCell: UICollectionViewCell, ImageLoader {
         guard self.imageURL == nil else { return }
         self.imageURL = imageURL
         
-        self.loadImage(imageURL) { image, error in
+        self.loadImage(imageURL) { [weak self] image, error in
             if let error = error {
-                self.delegate?.passError(error.localizedDescription)
+                self?.errorHandler?(error.localizedDescription)
                 return
             }
             guard let image = image else { return }
             DispatchQueue.main.async {
-                self.imageView.image = image
-                self.removeShimmer()
+                self?.imageView.image = image
+                self?.removeShimmer()
             }
         }
     }

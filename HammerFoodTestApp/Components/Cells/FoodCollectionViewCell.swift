@@ -1,9 +1,6 @@
 import UIKit
 import SnapKit
 
-protocol FoodCollectionViewCellProtocol {
-    func passError(_ errorMessage:String)
-}
 
 class FoodCollectionViewCell: UICollectionViewCell, ImageLoader {
     let imageView: UIImageView = {
@@ -43,7 +40,7 @@ class FoodCollectionViewCell: UICollectionViewCell, ImageLoader {
     }()
     
     var gradient = CAGradientLayer()
-    var delegate: FoodCollectionViewCellProtocol?
+    var errorHandler: ((_ errorMessage:String) -> Void)?
     
     
     override init(frame: CGRect) {
@@ -64,14 +61,14 @@ class FoodCollectionViewCell: UICollectionViewCell, ImageLoader {
         self.roundCorners(corners: [.topLeft,.topRight], radius: 0) // reset rounded top corners after first cell
         self.imageView.image = nil
         
-        self.loadImage(foodContent.imageurl) { image, error in
+        self.loadImage(foodContent.imageurl) { [weak self] image, error in
             if let error = error {
-                self.delegate?.passError(error.localizedDescription)
+                self?.errorHandler?(error.localizedDescription)
                 return
             }
             guard let image = image else { return }
             DispatchQueue.main.async {
-                self.imageView.image = image
+                self?.imageView.image = image
             }
         }
         priceButton.layer.borderWidth = UIConstants.priceButtonBorderWidth

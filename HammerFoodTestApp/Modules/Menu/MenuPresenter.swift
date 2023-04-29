@@ -48,7 +48,9 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identefiers.promotionCollectCell, for: indexPath) as? PromotionCollectionViewCell
             else { return UICollectionViewCell() }
             
-            cell.delegate = self
+            cell.errorHandler = { [weak self] errorMessage in
+                self?.view?.showFailureAlert(errorMessage)
+            }
             
             if state == .fetching && self.promotions.isEmpty {
                 cell.showLoadingAnimation()
@@ -61,6 +63,10 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
         case UIConstants.foodSection:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identefiers.foodCollectCell, for: indexPath) as? FoodCollectionViewCell
             else { return UICollectionViewCell() }
+            
+            cell.errorHandler = { [weak self] errorMessage in
+                self?.view?.showFailureAlert(errorMessage)
+            }
             
             if state == .fetching && self.food.isEmpty {
                 cell.showLoadingAnimation()
@@ -83,9 +89,12 @@ class MenuPresenter: ViewToPresenterMenuProtocol {
         case UICollectionView.elementKindSectionHeader:
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.Identefiers.categoryCollectionHeaderView, for: indexPath) as? CategoryCollectionReusableView
             else { return UICollectionReusableView() }
-            
-            header.delegate = self
             header.configure(self.categorySnapshot)
+            
+            header.handleTap = { [weak self] index in
+                self?.categorySnapshot.selectedIndex = index
+                self?.view?.reloadFoodSection()
+            }
             
             return header
         default: return UICollectionReusableView()
@@ -107,22 +116,5 @@ extension MenuPresenter: InteractorToPresenterMenuProtocol {
     
     func fetchServerDataFailure(errorMessage: String) {
         self.view?.showFailureAlert(errorMessage)
-    }
-}
-
-
-//MARK: - PromotionCellDelegate
-extension MenuPresenter: PromotionCollectionViewCellProtocol {
-    func passError(_ errorMessage: String) {
-        self.view?.showFailureAlert(errorMessage)
-    }
-}
-
-
-//MARK: - CategoryHeaderDelegate
-extension MenuPresenter: CategoryCollectionReusableViewProtocol {
-    func userTapCategory(_ index: Int) {
-        self.categorySnapshot.selectedIndex = index
-        self.view?.reloadFoodSection()
     }
 }

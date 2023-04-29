@@ -2,15 +2,12 @@ import UIKit
 import SnapKit
 
 
-protocol CategoryCollectionReusableViewProtocol {
-    func userTapCategory(_ index: Int)
-}
 
 class CategoryCollectionReusableView: UICollectionReusableView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     private var state: CategoryState = .fetching
-    var delegate: CategoryCollectionReusableViewProtocol?
+    var handleTap: ((_ index: Int) -> Void)?
     private var snapshot = CategoryHeaderSnapshot(categories: [], selectedIndex: 0)
     
     
@@ -48,7 +45,7 @@ extension CategoryCollectionReusableView: UICollectionViewDelegate, UICollection
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.delegate?.userTapCategory(indexPath.row)
+        handleTap?(indexPath.row)
     }
 }
 
