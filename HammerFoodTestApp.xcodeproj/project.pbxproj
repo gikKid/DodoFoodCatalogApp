@@ -176,19 +176,11 @@
 		547D7FCB29FAED6100EAE8AE /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				547D7FCC29FAED6900EAE8AE /* Networking */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		547D7FCC29FAED6900EAE8AE /* Networking */ = {
-			isa = PBXGroup;
-			children = (
 				54C124B929FB87510020EB11 /* APIRequest.swift */,
 				54C124BB29FB87A20020EB11 /* ImageRequest.swift */,
 				54C124D229FD3B480020EB11 /* Reachability.swift */,
 			);
-			path = Networking;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		547D7FCE29FAED8800EAE8AE /* UIComponents */ = {
