@@ -1,0 +1,2 @@
+# Architecture: VIPER
+# Technologies: SnapKit
