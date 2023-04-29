@@ -6,10 +6,8 @@ import SnapKit
 class CategoryCollectionReusableView: UICollectionReusableView {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-    private var state: CategoryState = .fetching
     var handleTap: ((_ index: Int) -> Void)?
     private var snapshot = CategoryHeaderSnapshot(categories: [], selectedIndex: 0)
-    
     
     
     override init(frame: CGRect) {
@@ -23,7 +21,6 @@ class CategoryCollectionReusableView: UICollectionReusableView {
     
     func configure(_ snapshot: CategoryHeaderSnapshot) {
         self.snapshot = snapshot
-        self.state = .fetched
         self.reloadCollection(snapshot.selectedIndex)
     }
 }
@@ -33,13 +30,13 @@ class CategoryCollectionReusableView: UICollectionReusableView {
 extension CategoryCollectionReusableView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.state == .fetching ? UIConstants.defaultItemsCount : self.snapshot.categories.count
+        return self.snapshot.categories.count == 0 ? UIConstants.defaultItemsCount : self.snapshot.categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.Identefiers.categoryCollectCell, for: indexPath) as? CategoryCollectionViewCell else { return UICollectionViewCell() }
-        self.state == .fetching ? cell.showLoadingAnimation() : cell.configure(self.snapshot.categories[indexPath.row].name)
+        self.snapshot.categories.count == 0 ? cell.showLoadingAnimation() : cell.configure(self.snapshot.categories[indexPath.row].name)
         return cell
     }
     
@@ -52,13 +49,9 @@ extension CategoryCollectionReusableView: UICollectionViewDelegate, UICollection
 
 private extension CategoryCollectionReusableView {
     
-    enum CategoryState {
-        case fetching, fetched
-    }
-    
     enum UIConstants {
         static let leftOffset: CGFloat = 15.0
-        static let defaultItemsCount = 3
+        static let defaultItemsCount = 1
         static let itemWidth: CGFloat = 100.0
         static let itemHeight: CGFloat = 32.0
         static let itemRightOffset : CGFloat = 10.0
